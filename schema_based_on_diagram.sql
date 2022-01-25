@@ -16,17 +16,20 @@ CREATE TABLE IF NOT EXISTS treatments
     name VARCHAR(100)
 )
 
---Table: Medical Histories
+-- Table: medical_histories
 DROP TABLE IF EXISTS medical_histories;
-CREATE TABLE IF NOT EXISTS invoices
+CREATE TABLE IF NOT EXISTS medical_histories
 (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     admitted_at TIMESTAMP,
     patient_id INT,
     status VARCHAR(100)
+    CONSTRAINT fk_patients FOREIGN KEY(patient_id) REFERENCES patient(id) 
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
 
---Table: Invoices
+-- Table: invoices
 DROP TABLE IF EXISTS invoices;
 CREATE TABLE IF NOT EXISTS invoices
 (
@@ -34,10 +37,13 @@ CREATE TABLE IF NOT EXISTS invoices
     total_amount DECIMAL,
     generated_at TIMESTAMP,
     payed_at TIMESTAMP,
-    medical_history_id INT
+    medical_history_id INT,
+    CONSTRAINT fk_medical_histories FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id) 
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
 
---Table: Invoice_items
+-- Table: invoice_items
 DROP TABLE IF EXISTS invoice_items;
 CREATE TABLE IF NOT EXISTS invoice_items
 (
@@ -46,8 +52,15 @@ CREATE TABLE IF NOT EXISTS invoice_items
     quantity INT,
     total_price DECIMAL,
     invoice_id INT,
-    treatment_id INT
+    treatment_id INT,
+    CONSTRAINT fk_invoces FOREIGN KEY(invoice_id) REFERENCES invoices(id) 
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_treatments FOREIGN KEY(treatment_id) REFERENCES treatments(id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 )
+
 
 
 
