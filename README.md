@@ -7,7 +7,7 @@
 
 ## Original Diagram
 
-![Original Diagram](assets/clinic-diagram.png)
+![Original Diagram](assets/clinic_diagram.png)
 
 ## Built with 
 
