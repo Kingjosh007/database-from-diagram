@@ -75,6 +75,14 @@ CREATE TABLE IF NOT EXISTS treatment_medical_histories
             ON UPDATE CASCADE
 );
 
+-- Index creation
+
+CREATE INDEX ON medical_histories (patient_id);
+CREATE INDEX ON invoices (medical_history_id);
+CREATE INDEX ON invoice_items (invoice_id);
+CREATE INDEX ON invoice_items (treatment_id);
+CREATE INDEX ON treatment_medical_histories (treatment_id);
+CREATE INDEX ON treatment_medical_histories (medical_history_id);
 
 
 
